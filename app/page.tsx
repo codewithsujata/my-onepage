@@ -24,7 +24,7 @@ export default function Page() {
           My One-Page Next.js Site
         </h1>
         <p style={{ color: '#4b5563' }}>
-          A minimal static design — edit this and save to see changes.
+          A minimal static design — edit this and save to see changessng.
         </p>
         <a
           href="#"
