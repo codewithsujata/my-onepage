@@ -25,6 +25,7 @@ export default function Page() {
         </h1>
         <p style={{ color: '#4b5563' }}>
           A minimal static design — edit this and save to see changessng.
+          thankyou gg
         </p>
         <a
           href="#"
