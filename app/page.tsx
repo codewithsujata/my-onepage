@@ -82,7 +82,7 @@ export default function Home() {
                   transition={{ duration: 1.2, ease: "easeOut" }}
                 >
                   <Image
-                    src="/1.webp"
+                    src="/1.jpg"
                     alt="Playful Dog"
                     width={550}
                     height={550}
