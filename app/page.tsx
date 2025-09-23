@@ -117,7 +117,7 @@ export default function Home() {
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
                   >
-                    Dogs bring joy, companionship, and love into our lives. Whether
+                    Doggs bring joy, companionship, and love into our lives. Whether
                     you're looking for a playful puppy or a loyal adult dog, every
                     pup is ready to bring a smile to your face.
                   </motion.p>
