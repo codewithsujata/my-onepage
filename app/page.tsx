@@ -117,9 +117,10 @@ export default function Home() {
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
                   >
-                    Doggs bringg joy, companionship, and love into our lives. Whether
-                    you're looking for a playful puppy or a loyal adult dog, every
-                    pup is ready to bring a smile to your face.
+                 Doggs bringg joy, companionship, and love into our lives. Whether
+                you&apos;re looking for a playful puppy or a loyal adult dog, every
+                pup is ready to bring a smile to your face.
+
                   </motion.p>
                 </motion.div>
               </>
@@ -171,7 +172,7 @@ export default function Home() {
                     transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
                   >
                     Looking for a furry friend to join your family? Our dogs are
-                    not just pets, they’re family. They are always ready for a game
+                    not just pets, they&apos;re family. They are always ready for a game
                     of fetch or a relaxing cuddle after a long day.
                   </motion.p>
                 </motion.div>
@@ -215,12 +216,12 @@ export default function Home() {
 
           {/* Video Modal */}
           {isOpen && (
-            <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 animate-fadeIn">
-              <div className="relative w-[90%] md:w-[70%] lg:w-[60%] aspect-video bg-black rounded-xl shadow-xl overflow-hidden">
+            <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+              <div className="relative w-full max-w-4xl aspect-video bg-black rounded-xl shadow-xl overflow-hidden">
                 {/* Close Button */}
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="absolute -top-12 right-0 text-white text-4xl hover:text-orange-500 transition"
+                  className="absolute top-4 right-4 bg-white/20 hover:bg-white/40 text-white rounded-full w-10 h-10 flex items-center justify-center text-2xl transition"
                 >
                   ✕
                 </button>
@@ -232,6 +233,7 @@ export default function Home() {
                   muted
                   playsInline
                   className="w-full h-full object-cover"
+                  controlsList="nodownload"
                 >
                   <source src="/corgi-video.mp4" type="video/mp4" />
                   <source src="/corgi-video.webm" type="video/webm" />
