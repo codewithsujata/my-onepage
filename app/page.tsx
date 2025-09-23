@@ -57,7 +57,7 @@ export default function Home() {
         {/* Header */}
         <header className="flex justify-between items-center px-8 py-6">
           <div className="flex items-center gap-2">
-            <Image src="/1.webp" alt="Welsh Corgi" width={48} height={48} />
+            <Image src="/1.jpg" alt="Welsh Corgi" width={48} height={48} />
             <div>
               <h1 className="text-xl font-bold">Paws & Tails</h1>
               <p className="text-sm text-gray-500 -mt-1">Your Trusted Pet Partners</p>
