@@ -1,12 +1,16 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+<<<<<<< HEAD
 import { createPortal } from "react-dom";
+=======
+>>>>>>> dc9b8e8 (ggggggg99999)
 import Image from "next/image";
 import { FaFacebookF, FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { FiX, FiMenu } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaBone, FaHome, FaBriefcaseMedical, FaPaw } from "react-icons/fa";
+<<<<<<< HEAD
 import { GiSlippers, GiRabbitHead, GiDogBowl, GiRibbonMedal, GiScissors } from "react-icons/gi";
 interface VideoModalProps {
   isOpen: boolean;
@@ -20,6 +24,12 @@ function VideoModal({ isOpen, onClose, videoUrl }: VideoModalProps) {
       videoRef.current.src = `${videoUrl}?autoplay=1&mute=1`;
     }
   }, [isOpen, videoUrl]);
+=======
+import { GiSlippers, GiRabbitHead, GiDogBowl, GiScissors } from "react-icons/gi";
+
+import HeroSection from "./components/HeroSection";
+import VideoModal from "./components/VideoModal";
+>>>>>>> dc9b8e8 (ggggggg99999)
 
   if (!isOpen) return null;
   return createPortal(
@@ -48,17 +58,32 @@ function VideoModal({ isOpen, onClose, videoUrl }: VideoModalProps) {
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+<<<<<<< HEAD
   const [showFirst, setShowFirst] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeDot, setActiveDot] = useState<number>(0);
   const facebookRef = useRef<HTMLDivElement>(null);
   const instagramRef = useRef<HTMLDivElement>(null);
   const whatsappRef = useRef<HTMLDivElement>(null);
+=======
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [activeDot, setActiveDot] = useState<number>(0);
+
+  const [showFirst, setShowFirst] = useState(true);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const images = ["/s1.jpg", "/s2.jpg", "/s3.jpg", "/s4.jpg"];
+
+  const facebookRef = useRef<HTMLDivElement>(null);
+  const instagramRef = useRef<HTMLDivElement>(null);
+  const whatsappRef = useRef<HTMLDivElement>(null);
+
+>>>>>>> dc9b8e8 (ggggggg99999)
   const heroRef = useRef<HTMLDivElement>(null);
   const section2Ref = useRef<HTMLDivElement>(null);
   const section3Ref = useRef<HTMLDivElement>(null);
   const section4Ref = useRef<HTMLDivElement>(null);
   const section5Ref = useRef<HTMLDivElement>(null);
+<<<<<<< HEAD
   const sections = [heroRef, section2Ref, section3Ref, section4Ref, section5Ref];
   const handleDotClick = (index: number) => {
     setActiveDot(index);
@@ -80,6 +105,48 @@ export default function Home() {
         break;
     }
   };
+=======
+
+  const sections = [heroRef, section2Ref, section3Ref, section4Ref, section5Ref];
+
+  const handleDotClick = (index: number) => {
+    setActiveDot(index);
+    const targetSection = sections[index].current;
+    if (targetSection) targetSection.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    switch (index) {
+      case 0: animateIcon(facebookRef); break;
+      case 1: animateIcon(instagramRef); break;
+      case 2: animateIcon(whatsappRef); break;
+      default: break;
+    }
+  };
+
+  const animateIcon = (ref: React.RefObject<HTMLDivElement>) => {
+    if (!ref.current) return;
+    ref.current.classList.add("scale-125", "text-orange-500");
+    setTimeout(() => ref.current?.classList.remove("scale-125", "text-orange-500"), 600);
+  };
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+  }, [isOpen]);
+
+  useEffect(() => {
+    const scrollHandler = () => {
+      const scrollPos = window.scrollY + window.innerHeight / 3;
+      sections.forEach((ref, idx) => {
+        const sec = ref.current;
+        if (!sec) return;
+        const top = sec.offsetTop;
+        const bottom = top + sec.offsetHeight;
+        if (scrollPos >= top && scrollPos < bottom) setActiveDot(idx);
+      });
+    };
+    window.addEventListener("scroll", scrollHandler);
+    return () => window.removeEventListener("scroll", scrollHandler);
+  }, []);
+>>>>>>> dc9b8e8 (ggggggg99999)
 
   const animateIcon = (ref: React.RefObject<HTMLDivElement>) => {
     if (!ref.current) return;
@@ -114,10 +181,12 @@ export default function Home() {
     const timer = setTimeout(() => setLoading(false), 2000);
     return () => clearTimeout(timer);
   }, []);
+<<<<<<< HEAD
+=======
+
+>>>>>>> dc9b8e8 (ggggggg99999)
   useEffect(() => {
-    const interval = setInterval(() => {
-      setShowFirst((prev) => !prev);
-    }, 5000);
+    const interval = setInterval(() => setShowFirst((prev) => !prev), 5000);
     return () => clearInterval(interval);
   }, []);
   const images = ["/s1.jpg", "/s2.jpg", "/s3.jpg", "/s4.jpg"];
@@ -128,6 +197,10 @@ export default function Home() {
   };
   return (
     <div className="min-h-screen flex flex-col bg-white relative overflow-hidden">
+<<<<<<< HEAD
+=======
+      {/* Loading */}
+>>>>>>> dc9b8e8 (ggggggg99999)
       {loading && (
         <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
           <div className="flex gap-2">
@@ -137,11 +210,16 @@ export default function Home() {
           </div>
         </div>
       )}
+<<<<<<< HEAD
       <div
         className={`flex flex-col transition-all duration-1000 ${
           loading ? "opacity-0 translate-y-10" : "opacity-100 translate-y-0"
         }`}
       >
+=======
+
+      <div className={`flex flex-col transition-all duration-1000 ${loading ? "opacity-0 translate-y-10" : "opacity-100 translate-y-0"}`}>
+>>>>>>> dc9b8e8 (ggggggg99999)
         {/* Header */}
         <header className="flex justify-between items-center px-8 py-6">
           <div className="flex items-center gap-2">
@@ -153,11 +231,9 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <FiMenu
-            className="text-3xl cursor-pointer"
-            onClick={() => setSidebarOpen(true)}
-          />
+          <FiMenu className="text-3xl cursor-pointer" onClick={() => setSidebarOpen(true)} />
         </header>
+<<<<<<< HEAD
         {/* Hero Section */}
         <main ref={heroRef} className="min-h-screen flex items-start justify-center py-10">
           <div className="w-[70%] mx-auto flex items-center justify-between gap-10 flex-wrap">
@@ -254,13 +330,25 @@ export default function Home() {
             )}
           </div>
         </main>
+=======
+
+        {/* Hero Section */}
+        <div ref={heroRef}>
+          <HeroSection loading={loading} />
+        </div>
+
+>>>>>>> dc9b8e8 (ggggggg99999)
         {/* Video Section */}
         <section ref={section2Ref} className="w-full py-20 bg-white">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10 px-4">
             <div className="md:w-1/2 text-center md:text-left">
               <h1 className="text-8xl font-bold text-gray-900 mb-6 leading-tight">
+<<<<<<< HEAD
                 Woof!
                 <br />
+=======
+                Woof!<br />
+>>>>>>> dc9b8e8 (ggggggg99999)
                 <span className="text-orange-500">Corgi Is!</span>
               </h1>
               <p className="text-gray-500 text-lg">
@@ -268,7 +356,10 @@ export default function Home() {
                 <span className="font-semibold">active and intelligent dog breed</span>. Easy to train and eager to learn, Pembrokes are great with children and other pets, and you can find them in four different coat colors.
               </p>
             </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> dc9b8e8 (ggggggg99999)
             <div className="md:w-1/2 relative w-full h-64 md:h-96">
               <Image src="/3.jpg" alt="Corgi" className="rounded-xl object-cover w-full h-full" fill />
               <button
@@ -281,6 +372,7 @@ export default function Home() {
         </section>
 
         {/* Section 3 */}
+<<<<<<< HEAD
        <section ref={section3Ref} className="w-full py-20 bg-white mt-40 mb-40">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10 px-4">
         {/* Left content */}
@@ -335,6 +427,57 @@ export default function Home() {
     </section>
         {/* Section 4 */}
         <section ref={section4Ref} className="w-full py-20 bg-white">
+=======
+        <section ref={section3Ref} className="w-full py-20 bg-white mt-40 mb-40">
+          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10 px-4">
+            <div className="md:w-1/2 text-center md:text-left">
+              <h1 className="text-8xl font-bold text-gray-900 mb-6 leading-tight">
+                History<br />& <span className="text-orange-500">Family</span>
+              </h1>
+              <p className="text-gray-500 text-lg">
+                Pembroke Welsh Corgis have been around since 1107 AD in some way, shape, or form.
+                They certainly didn’t look how they look today, but there are historical records
+                describing a short-legged dog used for driving cattle in Wales.
+              </p>
+            </div>
+            <div className="md:w-1/2 relative flex items-center justify-center w-full h-64 md:h-96 overflow-hidden rounded-xl">
+              <AnimatePresence initial={false}>
+                <motion.div
+                  key={activeIndex}
+                  initial={{ x: "100%" }}
+                  animate={{ x: 0 }}
+                  exit={{ x: "-100%" }}
+                  transition={{ type: "tween", duration: 0.6 }}
+                  className="absolute w-full h-full"
+                >
+                  <Image
+                    src={images[activeIndex]}
+                    alt={`Corgi ${activeIndex + 1}`}
+                    className="object-cover w-full h-full"
+                    fill
+                  />
+                </motion.div>
+              </AnimatePresence>
+              <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col gap-2">
+                {images.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActiveIndex(i)}
+                    className={`w-3 h-3 rounded-full border-2 cursor-pointer transition-all duration-300 ${
+                      activeIndex === i
+                        ? "bg-orange-500 border-orange-500 ring-2 ring-orange-400"
+                        : "bg-white border-gray-400 hover:border-orange-500"
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 4 */}
+     <section ref={section4Ref} className="w-full py-20 bg-white">
+>>>>>>> dc9b8e8 (ggggggg99999)
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12 px-6">
               {/* Left Content */}
               <div className="md:w-1/2 text-center md:text-left">
@@ -388,6 +531,7 @@ export default function Home() {
               style={{
                 transform: `rotate(${rotationDegree}deg) translate(13rem) translateY(-8rem) rotate(-${rotationDegree}deg)`
               }}
+<<<<<<< HEAD
             >
            <div className="cursor-pointer group relative w-23 h-23 flex items-center justify-center rounded-full transition-all duration-300 hover:scale-110">
   <div className="absolute inset-0 rounded-full bg-black opacity-0 group-hover:opacity-100 transition-opacity duration-300 scale-0 group-hover:scale-100 z-0"></div>
@@ -484,7 +628,87 @@ export default function Home() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6 }}
+=======
+>>>>>>> dc9b8e8 (ggggggg99999)
             >
+           <div className="cursor-pointer group relative w-23 h-23 flex items-center justify-center rounded-full transition-all duration-300 hover:scale-110">
+  <div className="absolute inset-0 rounded-full bg-black opacity-0 group-hover:opacity-100 transition-opacity duration-300 scale-0 group-hover:scale-100 z-0"></div>
+  <Icon className="relative z-10 text-6xl text-orange-500 group-hover:text-white transition-colors duration-300" />
+</div>
+
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+</section>
+
+
+        {/* Section 5 */}
+      <section ref={section5Ref} className="w-full py-20 bg-white mt-40 mb-40">
+  <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12 px-6">
+    {/* Left Content */}
+    <div className="md:w-1/2 text-center md:text-left">
+      <h1 className="text-8xl font-bold text-gray-900 mb-6 leading-tight">
+        Decided ?
+        <br />
+        <span className="text-orange-500">Contact Us</span>
+      </h1>
+      <hr className="w-12 border-t border-gray-300 mb-6 mx-auto md:mx-0" />
+      <p className="text-gray-500 leading-relaxed">
+        High energy combined with lots of smarts lends itself to disaster when the dog is not properly cared for.
+        It’s imperative that Corgis receive appropriate amounts of{" "}
+        <span className="font-semibold text-gray-700">
+          exercise, special food, bath, care and brain activities.
+        </span>{" "}
+        Be caring and responsible.
+      </p>
+    </div>
+
+    {/* Right Content - Simple Professional Form */}
+    <div className="md:w-1/2 w-full">
+      <form className="flex flex-col gap-6">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+          <input
+            type="text"
+            placeholder="Enter your name"
+            className="w-full border-b-2 border-gray-300 focus:border-orange-500 outline-none py-2"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <input
+            type="email"
+            placeholder="Enter your email"
+            className="w-full border-b-2 border-gray-300 focus:border-orange-500 outline-none py-2"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+          <textarea
+            placeholder="Write your message..."
+            rows={4}
+            className="w-full border-b-2 border-gray-300 focus:border-orange-500 outline-none py-2 resize-none"
+          />
+        </div>
+        <button
+          type="submit"
+          className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 rounded-xl transition"
+        >
+          Send Message
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+        {/* Sidebar */}
+        <div className={`fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm transition-all duration-500 ${sidebarOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`} onClick={() => setSidebarOpen(false)}>
+          <div className={`fixed left-0 top-0 w-[25%] bg-white shadow-lg h-full flex flex-col items-center py-10 px-6 transition-all duration-500 transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
+            <FiX className="text-4xl absolute top-6 right-6 cursor-pointer" onClick={() => setSidebarOpen(false)} />
+            <motion.div className="flex flex-col items-center space-y-8 text-xl font-medium" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
               <motion.div whileHover={{ scale: 1.1 }}>Home</motion.div>
               <motion.div whileHover={{ scale: 1.1 }}>About</motion.div>
               <motion.div whileHover={{ scale: 1.1 }}>Contact</motion.div>
@@ -497,6 +721,7 @@ export default function Home() {
       {/* Right Side Dots */}
       <div className="fixed right-4 top-1/2 transform -translate-y-1/2 flex flex-col items-center space-y-4 z-50">
         {[0, 1, 2, 3, 4].map((dot, idx) => (
+<<<<<<< HEAD
           <div
             key={idx}
             className="relative w-8 h-8 flex items-center justify-center cursor-pointer"
@@ -544,16 +769,43 @@ export default function Home() {
           0%, 60%, 100% { transform: translateY(0); }
           30% { transform: translateY(-12px); }
         }
+=======
+          <div key={idx} className="relative w-8 h-8 flex items-center justify-center cursor-pointer" onClick={() => handleDotClick(idx)}>
+            <span className={`absolute w-6 h-6 rounded-full border-2 border-orange-500 transition-all duration-500 ${activeDot === idx ? "opacity-100 scale-110 animate-ping-slow" : "opacity-0 scale-100"}`}></span>
+            <span className={`w-2.5 h-2.5 rounded-full z-10 transition-colors duration-300 ${activeDot === idx ? "bg-orange-500" : "bg-black hover:bg-gray-700"}`} />
+          </div>
+        ))}
+      </div>
+
+      {/* Left Social Icons */}
+      <div className="fixed left-0 top-1/2 transform -translate-y-1/2 flex flex-col items-center space-y-6 z-50">
+        <div ref={facebookRef}><FaFacebookF className="text-4xl text-yellow-500 transition-all duration-300" /></div>
+        <div ref={instagramRef}><FaInstagram className="text-4xl text-yellow-500 transition-all duration-300" /></div>
+        <div ref={whatsappRef}><FaWhatsapp className="text-4xl text-yellow-500 transition-all duration-300" /></div>
+      </div>
+
+      {/* Animations */}
+      <style jsx>{`
+        @keyframes ping-slow { 0% { transform: scale(0.9); opacity: 0.7; } 50% { transform: scale(1.2); opacity: 0.3; } 100% { transform: scale(1.2); opacity: 0; } }
+        .animate-ping-slow { animation: ping-slow 1s ease-out infinite; }
+        @keyframes wave { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-12px); } }
+>>>>>>> dc9b8e8 (ggggggg99999)
         .animate-wave { animation: wave 1s infinite ease-in-out; }
         .delay-0 { animation-delay: 0s; }
         .delay-150 { animation-delay: 0.15s; }
         .delay-300 { animation-delay: 0.3s; }
       `}</style>
+<<<<<<< HEAD
       <VideoModal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         videoUrl="https://www.youtube.com/embed/_rDAbxZ8jLI"
       />
+=======
+
+      {/* Video Modal */}
+      <VideoModal isOpen={isOpen} onClose={() => setIsOpen(false)} videoUrl="https://www.youtube.com/embed/_rDAbxZ8jLI" />
+>>>>>>> dc9b8e8 (ggggggg99999)
     </div>
   );
 }
