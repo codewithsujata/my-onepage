@@ -26,11 +26,39 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, []);
 
-  return (
-    <div className="min-h-screen flex flex-col bg-white relative overflow-hidden">
-      {loading && <div className="fixed inset-0 bg-white flex items-center justify-center z-50">Loading...</div>}
+  useEffect(() => {
+    if (loading) {
+      // Disable scroll while loading
+      document.body.style.overflow = 'hidden';
+    } else {
+      // Re-enable scroll after loading
+      document.body.style.overflow = 'auto';
+      // Force scroll to top once loading finishes
+      window.scrollTo(0, 0); // This will make sure the page is scrolled to the top
+    }
 
-      <div className={`flex flex-col transition-all duration-1000 ${loading ? "opacity-0 translate-y-10" : "opacity-100 translate-y-0"}`}>
+    return () => {
+      document.body.style.overflow = 'auto'; // Clean up in case component is unmounted
+    };
+  }, [loading]);
+
+  return (
+    <div className="min-h-screen flex flex-col bg-white relative">
+      {/* Wavy Loader */}
+      {loading && (
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
+          <div className="flex space-x-3">
+            <span className="w-4 h-4 bg-orange-500 rounded-full animate-wavy" style={{ animationDelay: '0s' }}></span>
+            <span className="w-4 h-4 bg-orange-500 rounded-full animate-wavy" style={{ animationDelay: '0.2s' }}></span>
+            <span className="w-4 h-4 bg-orange-500 rounded-full animate-wavy" style={{ animationDelay: '0.4s' }}></span>
+          </div>
+        </div>
+      )}
+
+      {/* Main Content */}
+      <div
+        className={`flex flex-col transition-all duration-1000 ${loading ? "opacity-0 translate-y-10" : "opacity-100 translate-y-0"}`}
+      >
         <div ref={heroRef}><HeroSection loading={loading} /></div>
         <div ref={section2Ref}><VideoSection onOpen={() => setIsOpen(true)} /></div>
         <div ref={section3Ref}><HistorySection images={images} /></div>
@@ -38,7 +66,11 @@ export default function Home() {
         <div ref={section5Ref}><ContactSection /></div>
       </div>
 
-      <VideoModal isOpen={isOpen} onClose={() => setIsOpen(false)} videoUrl="https://www.youtube.com/embed/_rDAbxZ8jLI" />
+      <VideoModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        videoUrl="https://www.youtube.com/embed/_rDAbxZ8jLI"
+      />
     </div>
   );
 }
