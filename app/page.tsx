@@ -18,6 +18,7 @@ export default function Home() {
   const section4Ref = useRef<HTMLDivElement>(null);
   const section5Ref = useRef<HTMLDivElement>(null);
 
+  const sections = [heroRef, section2Ref, section3Ref, section4Ref, section5Ref];
   const images = ["/s1.jpg", "/s2.jpg", "/s3.jpg", "/s4.jpg"];
 
   useEffect(() => {

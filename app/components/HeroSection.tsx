@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 
 import Image from "next/image";
 import { useState, useEffect } from "react";
@@ -137,18 +138,23 @@ export default function HeroSection({ loading }: HeroSectionProps) {
             </div>
 
             {/* Centered Navigation Links */}
-            <nav className="flex-1 flex flex-col justify-center items-center space-y-8">
-              {["Home", "About", "Contact", "Gallery"].map((link) => (
-                <a
-                  key={link}
-                  href={`#${link.toLowerCase()}`}
-                  className="text-3xl font-bold text-gray-800 hover:text-orange-500 transition"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {link}
-                </a>
-              ))}
-            </nav>
+           <nav className="flex-1 flex flex-col justify-center items-center space-y-8">
+  {[
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Contact", href: "/contact" },
+    { name: "Gallery", href: "/gallery" },
+  ].map((link) => (
+    <Link
+      key={link.name}
+      href={link.href}
+      className="text-3xl font-bold text-gray-800 hover:text-orange-500 transition"
+      onClick={() => setMenuOpen(false)}
+    >
+      {link.name}
+    </Link>
+  ))}
+</nav>
 
             {/* Close Button at top-right */}
             <div className="absolute top-6 right-6">
