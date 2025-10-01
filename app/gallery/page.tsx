@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';  // Import next/image for optimization
 
 const Gallery = () => {
   const [dogImages, setDogImages] = useState<string[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);  // Add loading state
-  const [error, setError] = useState<string | null>(null);  // Add error state
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchDogImages = async () => {
@@ -17,20 +18,26 @@ const Gallery = () => {
         }
         const data = await res.json();
         setDogImages(data.message);
-        setLoading(false);
-      } catch (error) {
-        setError('Failed to load dog images.');
-        setLoading(false);
+        setLoading(false);  // Successfully fetched, so stop loading
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message); // show actual error message
+        } else {
+          setError('Failed to load dog images.');
+        }
+        setLoading(false);  // Stop loading even if there's an error
       }
     };
 
     fetchDogImages();
   }, []);
 
-  // if (loading) {
-  //   return <div className="text-center text-lg text-gray-600">Loading...</div>;
-  // }
+  // Show loading indicator
+  if (loading) {
+    return <div className="text-center text-lg text-gray-600">Loading...</div>;
+  }
 
+  // Show error message
   if (error) {
     return <div className="text-center text-lg text-red-600">{error}</div>;
   }
@@ -63,10 +70,13 @@ const Gallery = () => {
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
               >
-                <img
+                <Image
                   className="w-full h-full object-cover rounded-lg"
                   src={imageUrl}
                   alt={`Dog ${index + 1}`}
+                  unoptimized
+                  width={500} // optimized width
+                  height={500} // optimized height
                 />
                 <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity"></div>
               </motion.div>

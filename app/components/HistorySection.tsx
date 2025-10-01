@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import React, { useState } from "react";
+import React from "react";
 
 interface HistorySectionProps {
   images: string[];
@@ -12,7 +12,7 @@ export default function HistorySection({ images }: HistorySectionProps) {
   const [activeIndex, setActiveIndex] = React.useState(0);
 
   return (
-    <section className="w-full py-20 bg-white mt-40 mb-40">
+    <section id="section3" className="w-full py-20 bg-white mt-40 mb-40">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10 px-4">
         <div className="md:w-1/2 text-center md:text-left">
           <h1 className="text-8xl font-bold text-gray-900 mb-6 leading-tight">

@@ -9,6 +9,8 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ loading }: HeroSectionProps) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const dots = ["#section1", "#section2", "#section3", "#section4", "#section5"];
   const [showFirst, setShowFirst] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -29,11 +31,35 @@ export default function HeroSection({ loading }: HeroSectionProps) {
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
   return (
-    <main
+    <main id="section1"
       className={`pt-[80px] min-h-screen flex flex-col items-center justify-center py-10 ${
         loading ? "fixed inset-0 z-50 bg-white" : ""
       }`}
     >
+      {/* Fixed Dot Navigation */}
+     <div className="fixed right-4 top-1/2 transform -translate-y-1/2 flex flex-col gap-4 z-50">
+        {dots.map((href, index) => (
+          <a
+            key={index}
+            href={href}
+            onClick={(e) => {
+              e.preventDefault();
+              setActiveIndex(index);
+              const section = document.querySelector(href);
+              section?.scrollIntoView({ behavior: "smooth", block: "start" });
+            }}
+            className={`relative w-3 h-3 rounded-full transition-all
+              ${activeIndex === index ? "bg-orange-500" : "bg-black"}
+              hover:bg-orange-500`}
+          >
+            {activeIndex === index && (
+              <span className="absolute inset-[-4px] rounded-full border-2 border-orange-500 animate-ping"></span>
+            )}
+          </a>
+        ))}
+      </div>
+
+
       {/* Header */}
       <header
         className={`fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md transition-opacity duration-300 ${
@@ -44,11 +70,14 @@ export default function HeroSection({ loading }: HeroSectionProps) {
           {/* Logo */}
           <div className="flex items-center space-x-4">
             <div className="relative w-20 h-20 rounded-full p-1 bg-gradient-to-tr from-orange-400 to-yellow-400 shadow-lg">
-              <img
-                src="/logo.jpg"
-                alt="Logo"
-                className="h-full w-full rounded-full object-cover border-2 border-white shadow-inner transition-transform duration-300 ease-in-out hover:scale-105"
-              />
+             <Image
+            src="/logo.jpg"
+            alt="Logo"
+            width={80} // adjust as needed
+            height={80} // adjust as needed
+            className="h-full w-full rounded-full object-cover border-2 border-white shadow-inner transition-transform duration-300 ease-in-out hover:scale-105"
+          />
+
             </div>
             <div className="flex flex-col justify-center leading-tight">
               <span className="text-2xl font-extrabold text-orange-500 tracking-widest select-none drop-shadow-md">
@@ -85,53 +114,54 @@ export default function HeroSection({ loading }: HeroSectionProps) {
       </header>
 
       {/* Full-screen Top-to-Bottom Menu */}
-    <AnimatePresence>
-  {menuOpen && (
-    <motion.div
-      className="fixed top-0 left-0 w-full h-screen bg-white z-50 flex flex-col"
-      initial={{ y: "-100%" }}
-      animate={{ y: 0 }}
-      exit={{ y: "-100%" }}
-      transition={{ duration: 0.5, ease: "easeInOut" }}
-    >
-      {/* Logo at top */}
-      <div className="w-full flex justify-center py-6 border-b border-gray-200 flex-none">
-        <div className="relative w-24 h-24 rounded-full p-1 bg-gradient-to-tr from-orange-400 to-yellow-400 shadow-lg">
-          <img
-            src="/logo.jpg"
-            alt="Logo"
-            className="h-full w-full rounded-full object-cover border-2 border-white shadow-inner"
-          />
-        </div>
-      </div>
-
-      {/* Centered Navigation Links */}
-      <nav className="flex-1 flex flex-col justify-center items-center space-y-8">
-        {["Home", "About", "Contact", "Gallery"].map((link) => (
-          <a
-            key={link}
-            href={`#${link.toLowerCase()}`}
-            className="text-3xl font-bold text-gray-800 hover:text-orange-500 transition"
-            onClick={() => setMenuOpen(false)}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            className="fixed top-0 left-0 w-full h-screen bg-white z-50 flex flex-col"
+            initial={{ y: "-100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "-100%" }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
           >
-            {link}
-          </a>
-        ))}
-      </nav>
+            {/* Logo at top */}
+            <div className="w-full flex justify-center py-6 border-b border-gray-200 flex-none">
+              <div className="relative w-24 h-24 rounded-full p-1 bg-gradient-to-tr from-orange-400 to-yellow-400 shadow-lg">
+                <Image
+                  src="/logo.jpg"
+                  alt="Logo"
+                   width={80} 
+                    height={80}
+                  className="h-full w-full rounded-full object-cover border-2 border-white shadow-inner"
+                />
+              </div>
+            </div>
 
-      {/* Close Button at top-right */}
-      <div className="absolute top-6 right-6">
-        <button
-          className="text-4xl font-bold text-gray-800 cursor-pointer"
-          onClick={() => setMenuOpen(false)}
-        >
-          &times;
-        </button>
-      </div>
-    </motion.div>
-  )}
-</AnimatePresence>
+            {/* Centered Navigation Links */}
+            <nav className="flex-1 flex flex-col justify-center items-center space-y-8">
+              {["Home", "About", "Contact", "Gallery"].map((link) => (
+                <a
+                  key={link}
+                  href={`#${link.toLowerCase()}`}
+                  className="text-3xl font-bold text-gray-800 hover:text-orange-500 transition"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {link}
+                </a>
+              ))}
+            </nav>
 
+            {/* Close Button at top-right */}
+            <div className="absolute top-6 right-6">
+              <button
+                className="text-4xl font-bold text-gray-800 cursor-pointer"
+                onClick={() => setMenuOpen(false)}
+              >
+                &times;
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Content Section */}
       <div className="w-[70%] max-w-7xl mx-auto flex items-center justify-between gap-10 flex-wrap">
@@ -183,16 +213,17 @@ export default function HeroSection({ loading }: HeroSectionProps) {
                     Companion
                   </motion.span>
                 </motion.h2>
-                <motion.p
-                  className="text-gray-400 text-lg leading-relaxed mt-6"
-                  initial={{ y: 50, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
-                >
-                  Dogs bring joy, companionship, and love into our lives. Whether you&apos;re
-                  looking for a playful puppy or a loyal adult dog, every pup is ready to bring a
-                  smile to your face.
-                </motion.p>
+               <motion.p
+              className="text-gray-400 text-lg leading-relaxed mt-6"
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
+            >
+              Dogs bring joy, companionship, and love into our lives. Whether you&apos;re
+              looking for a playful puppy or a loyal adult dog, every pup is ready to bring a
+              smile to your face.
+            </motion.p>
+
               </motion.div>
             </motion.div>
           )}
@@ -244,16 +275,17 @@ export default function HeroSection({ loading }: HeroSectionProps) {
                     Pup
                   </motion.span>
                 </motion.h2>
-                <motion.p
-                  className="text-gray-400 text-lg leading-relaxed mt-6"
-                  initial={{ y: 50, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
-                >
-                  Looking for a furry friend to join your family? Our dogs are not just pets, they&apos;re
-                  family. They are always ready for a game of fetch or a relaxing cuddle after a long day.
-                </motion.p>
-              </motion.div>
+            <motion.p
+  className="text-gray-400 text-lg leading-relaxed mt-6"
+  initial={{ y: 50, opacity: 0 }}
+  animate={{ y: 0, opacity: 1 }}
+  transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
+>
+  Looking for a furry friend to join your family? Our dogs are not just pets, they&apos;re
+  family. They are always ready for a game of fetch or a relaxing cuddle after a long day&apos;s rest.
+</motion.p>
+
+                  </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
